@@ -47,7 +47,22 @@ g = 0.5
 N = 20
 x0 = np.random.random(N) - 0.5
 W = np.random.randn(N,N)
-dx_dt = partial(dx_dt_full,tau=tau,g=g,W=W)
-ts,x = euler(dx_dt,x0,0.001,200)
-plt.plot(ts,x)
+
+plt.figure(1)
+taulist = [0.5,1,4,8,12,20]
+for i,taui in enumerate(taulist):
+	plt.subplot(231+i)
+	dx_dt = partial(dx_dt_full,tau=taui,g=g,W=W)
+	ts,x = euler(dx_dt,x0,0.01,200)
+	plt.plot(ts,x)
 plt.show()
+
+plt.figure(2)
+glist = [0,2,4,6,8,10]
+for i,gi in enumerate(glist):
+	plt.subplot(231+i)
+	dx_dt = partial(dx_dt_full,tau=10.,g=gi,W=W)
+	ts,x = euler(dx_dt,x0,0.01,200)
+	plt.plot(ts,x)
+plt.show()
+
